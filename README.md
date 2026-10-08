@@ -2,9 +2,9 @@
 
 English | [中文](README.zh.md)
 
-## DSH 0.1.5-rc.2 compatibility update
+## DSH 0.2.0-rc.2 desktop plugin-manager compatibility metadata
 
-This repository is a compatibility fork updated for **DeepSeek Harness `0.1.5-rc.2`**. It migrates the old client runtime import to `@deepseek-ai/dsh-client-store`, restores the current `settingsScope` and keyed settings-slot API, and has been verified against a live DSH Web instance.
+This fork changes package compatibility metadata only so the DSH 0.2.0-rc.2 desktop plugin manager can recognize and install it. Runtime code has not been ported or verified against DSH 0.2.0-rc.2; installation approval is not evidence that Aqua works at runtime.
 
 ### Attribution
 

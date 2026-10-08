@@ -2,9 +2,9 @@
 
 [English](README.md) | 中文
 
-## DSH 0.1.5-rc.2 兼容更新
+## DSH 0.2.0-rc.2 桌面插件管理器兼容元数据
 
-本仓库是适配 **DeepSeek Harness `0.1.5-rc.2`** 的兼容更新版。已迁移旧的客户端运行时依赖到 `@deepseek-ai/dsh-client-store`，补齐当前版本要求的 `settingsScope` 与 keyed 设置槽位 API，并已在真实 DSH Web 实例中完成加载验证。
+此分支仅更新插件包的 DSH 兼容元数据，以便当前 DSH 桌面版插件管理器识别并允许安装。未迁移或验证运行时代码；安装通过不代表 Aqua 功能已在 DSH `0.2.0-rc.2` 运行验证。
 
 ### 来源与署名
 
