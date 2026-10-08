@@ -141,11 +141,13 @@ test('profile overlay imports the installed scoped package, not the obsolete npm
   assert.equal(typeof host.apply, 'function')
 })
 
-test('desktop fluid is sidebar-bound and toolbar avoids overlapping scroll geometry', async () => {
+test('desktop fluid is sidebar-bound and toolbar uses bounded scroll overlap', async () => {
   const css = await readFile(new URL('../src/client/aqua.module.css', import.meta.url), 'utf8')
   assert.match(css, /width: var\(--dsh-aqua-fluid-width, 0px\)/)
   assert.match(css, /-webkit-app-region: no-drag/)
   assert.doesNotMatch(css, /margin-top: -95px/)
+  assert.match(css, /margin-top: calc\(0px - var\(--dsh-aqua-header-overlap, 0px\)\)/)
+  assert.match(css, /:has\(> \[data-conversation-scroll\]\)\s*\{\s*position: relative;\s*z-index: 0;/)
   const mesh = await readFile(new URL('../src/client/mesh.ts', import.meta.url), 'utf8')
   assert.match(mesh, /LINE_ALPHA = 0\.15/)
   assert.match(mesh, /DOT_ALPHA = 0\.3/)

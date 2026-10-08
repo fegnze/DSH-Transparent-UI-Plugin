@@ -65,11 +65,18 @@
   position: static;
 }
 
-/* Keep the scrollport below the toolbar: its old negative margin made
-   a transparent hit-test surface overlap the header on desktop. */
+/* Restore the upstream under-header scroll effect with measured geometry.
+   Contain ALL body descendants (sticky composer, code banners, overlays) in
+   a lower stacking context so they cannot intercept the toolbar's clicks.
+   Do not use opacity/filter/mask here: those break backdrop sampling. */
+[data-dsh-float] [data-phase='active'] :has(> [data-conversation-scroll]) {
+  position: relative;
+  z-index: 0;
+}
+
 [data-dsh-float] [data-phase='active'] [data-conversation-scroll] {
-  margin-top: 0;
-  padding-top: 12px;
+  margin-top: calc(0px - var(--dsh-aqua-header-overlap, 0px));
+  padding-top: calc(var(--dsh-aqua-header-overlap, 0px) + 12px);
 }
 
 [data-dsh-aqua] header {

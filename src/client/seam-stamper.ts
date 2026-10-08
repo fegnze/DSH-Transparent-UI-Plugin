@@ -96,13 +96,45 @@ export function startSeamStamper(): () => void {
     }
     updateFluidBounds()
   }
-  refresh()
-  const observer = new MutationObserver(refresh)
+  // Measure each resident conversation independently (including split views).
+  const headers = new Map<HTMLElement, HTMLElement>()
+  const updateHeaderBounds = (): void => {
+    for (const [header, phase] of headers) {
+      const rect = header.getBoundingClientRect()
+      const margin = Number.parseFloat(getComputedStyle(header).marginTop) || 0
+      phase.style.setProperty('--dsh-aqua-header-overlap', `${Math.ceil(rect.height + margin)}px`)
+    }
+  }
+  const headerResize = new ResizeObserver(updateHeaderBounds)
+  const refreshHeaders = (): void => {
+    const live = new Set(document.querySelectorAll<HTMLElement>('[data-phase] header'))
+    for (const [header, phase] of headers) {
+      if (!live.has(header)) {
+        headerResize.unobserve(header)
+        phase.style.removeProperty('--dsh-aqua-header-overlap')
+        headers.delete(header)
+      }
+    }
+    for (const header of live) {
+      const phase = header.closest<HTMLElement>('[data-phase]')
+      if (phase && !headers.has(header)) {
+        headers.set(header, phase)
+        headerResize.observe(header)
+      }
+    }
+    updateHeaderBounds()
+  }
+  const refreshAll = (): void => { refresh(); refreshHeaders() }
+  refreshAll()
+  const observer = new MutationObserver(refreshAll)
   observer.observe(document.documentElement, { childList: true, subtree: true })
   window.addEventListener('resize', updateFluidBounds)
   return () => {
     observer.disconnect()
     resize.disconnect()
+    headerResize.disconnect()
+    for (const phase of headers.values()) phase.style.removeProperty('--dsh-aqua-header-overlap')
+    headers.clear()
     window.removeEventListener('resize', updateFluidBounds)
     document.documentElement.style.removeProperty('--dsh-aqua-fluid-left')
     document.documentElement.style.removeProperty('--dsh-aqua-fluid-width')
