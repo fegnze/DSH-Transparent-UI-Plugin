@@ -150,3 +150,11 @@ test('desktop fluid is sidebar-bound and toolbar avoids overlapping scroll geome
   assert.match(mesh, /LINE_ALPHA = 0\.15/)
   assert.match(mesh, /DOT_ALPHA = 0\.3/)
 })
+
+test('primary glass surfaces share upstream material with no duplicate composer plate', async () => {
+  const css = await readFile(new URL('../src/client/aqua.module.css', import.meta.url), 'utf8')
+  assert.match(css, /:is\(header, \[data-composer-card\], \[data-shortcut-modal='settings'\]\)/)
+  assert.doesNotMatch(css, /--dsh-aqua-settings-frost/)
+  assert.match(css, /calc\(42% \* var\(--dsh-aqua-frost, 1\)\)/)
+  assert.match(css, /calc\(50% \* var\(--dsh-aqua-frost, 1\)\)/)
+})

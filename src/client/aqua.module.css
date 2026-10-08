@@ -961,6 +961,29 @@ html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] body[
   backdrop-filter: blur(12px);
 }
 
+/* One material authority for the three primary surfaces. Keep upstream's
+   42% light / 50% dark base and capped frost multiplier; only geometry differs.
+   Declare last to outrank host skins and compatibility-mode panel filters. */
+[data-dsh-aqua] body :is(header, [data-composer-card], [data-shortcut-modal='settings']),
+[data-dsh-aqua] body [data-dsh-inputbar]:has([data-dsh-stats]) {
+  background: var(--dsh-aqua-glass-card-light);
+  backdrop-filter: blur(var(--dsh-aqua-blur, 14px));
+}
+
+[data-dsh-aqua] body[data-ds-dark-theme] :is(header, [data-composer-card], [data-shortcut-modal='settings']),
+[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-inputbar]:has([data-dsh-stats]) {
+  background: var(--dsh-aqua-glass-card-dark);
+}
+
+/* A fused composer uses its wrapper as the ONLY glass plate; stacking a
+   second fill/filter inside it would change both opacity and blur strength. */
+[data-dsh-aqua] body [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card],
+[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card],
+[data-dsh-aqua] body [data-dsh-inputbar]:has([data-dsh-stats]) [data-dsh-stats] {
+  background: transparent;
+  backdrop-filter: none;
+}
+
 /* ---------- Reduced motion: keep the static look, drop every effect. ---------- */
 @media (prefers-reduced-motion: reduce) {
   [data-dsh-float] [data-phase='hero'],
