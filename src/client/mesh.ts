@@ -15,8 +15,8 @@ const LINE_GAP = 10
 const MIN_LINE_DIST = 20
 const LINE_COLOR = 'rgba(60, 100, 160, '
 const DOT_COLOR = 'rgba(60, 100, 160, '
-const LINE_ALPHA = 0.28
-const DOT_ALPHA = 0.5
+const LINE_ALPHA = 0.15
+const DOT_ALPHA = 0.3
 const FPS = 30
 
 /** Mesh handle: disposal. */

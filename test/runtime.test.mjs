@@ -137,6 +137,6 @@ test('desktop fluid is sidebar-bound and toolbar avoids overlapping scroll geome
   assert.match(css, /-webkit-app-region: no-drag/)
   assert.doesNotMatch(css, /margin-top: -95px/)
   const mesh = await readFile(new URL('../src/client/mesh.ts', import.meta.url), 'utf8')
-  assert.match(mesh, /LINE_ALPHA = 0\.28/)
-  assert.match(mesh, /DOT_ALPHA = 0\.5/)
+  assert.match(mesh, /LINE_ALPHA = 0\.15/)
+  assert.match(mesh, /DOT_ALPHA = 0\.3/)
 })
