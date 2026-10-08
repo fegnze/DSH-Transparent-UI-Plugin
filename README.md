@@ -45,7 +45,7 @@ Aqua is a highly customizable glassmorphism theme for the DeepSeek Harness web U
 
 ### Current desktop application (recommended)
 
-Use the desktop **Settings → Plugin manager** with GitHub source `https://github.com/fegnze/DSH-Transparent-UI-Plugin`, branch `main`. When updating, fetch the new commit rather than a cached older revision, then reload the desktop window.
+Use the desktop **Settings → Plugin manager** with GitHub source `https://github.com/fegnze/DSH-Transparent-UI-Plugin`, branch `main`. DSH 0.2.0-rc.2 has no in-place upgrade or update check in this UI: uninstall the old plugin, reinstall the source, then reload the desktop window. Refreshing the plugin list does not fetch a newer version.
 
 Desktop uses the `desktop` profile. The legacy installer below targets `web` and is not a desktop installation procedure. Do not modify the desktop profile with an older CLI runtime.
 
@@ -57,7 +57,15 @@ npm run bundle
 npm test
 ```
 
-The build no longer needs the original author's monorepo or Windows paths. Tests use a simulated DOM, not a real desktop GPU/visual acceptance run.
+The build no longer needs the original author's monorepo or Windows paths. `npm test` uses a simulated DOM and instrumented draw calls, not a real desktop GPU/visual acceptance run.
+
+Optional real Chromium toolbar regression (Node 22+, use your own browser executable):
+
+```sh
+DSH_TEST_CHROME='/path/to/chrome' npm run test:browser
+```
+
+This launches an isolated headless fixture with the desktop drag rules, display-contents slot wrappers, under-header scrolling and a high-z body overlay. It verifies the computed native drag exclusion, stationary hover geometry and 100 consecutive input clicks with press enabled/disabled. It does not attach to the live desktop and cannot verify Electron's macOS native hit routing. Enabling Aqua deliberately makes the floating toolbar non-draggable; other desktop drag areas remain unchanged. Temporary browser profiles stay under the ignored `.npm-stage/` directory.
 
 ### Legacy Web installer (reference only)
 

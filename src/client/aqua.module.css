@@ -83,11 +83,18 @@
   position: relative;
   z-index: 10;
   pointer-events: auto;
+}
+
+/* The desktop shell uses html[data-platform=darwin] [data-window-drag]
+   (0,2,1). The old [data-dsh-aqua] header rule (0,1,1) lost to it, leaving
+   native drag hit regions across the floating controls. Cover descendants
+   too: an SVG/slot child must not reintroduce a drag island over a button. */
+html[data-dsh-aqua][data-platform] header[data-window-drag],
+html[data-dsh-aqua][data-platform] header[data-window-drag] * {
   -webkit-app-region: no-drag;
 }
 
 [data-dsh-aqua] header :is(button, a, input, select, [role='button']) {
-  -webkit-app-region: no-drag;
   pointer-events: auto;
 }
 

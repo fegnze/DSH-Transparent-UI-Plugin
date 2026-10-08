@@ -1,7 +1,7 @@
 {
   "name": "@deepseek-ai/dsh-client-ui-aqua",
   "description": "Aqua glassmorphism theme for DeepSeek Harness 0.2.0-rc.2",
-  "version": "1.3.18",
+  "version": "1.3.19",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,8 @@
   },
   "scripts": {
     "bundle": "node scripts/build.mjs",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "node test/toolbar.browser.mjs"
   },
   "license": "AGPL-3.0-only",
   "engines": {

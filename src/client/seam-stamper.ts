@@ -100,9 +100,12 @@ export function startSeamStamper(): () => void {
   const headers = new Map<HTMLElement, HTMLElement>()
   const updateHeaderBounds = (): void => {
     for (const [header, phase] of headers) {
-      const rect = header.getBoundingClientRect()
+      // Layout-space height avoids feedback from any animated transforms.
       const margin = Number.parseFloat(getComputedStyle(header).marginTop) || 0
-      phase.style.setProperty('--dsh-aqua-header-overlap', `${Math.ceil(rect.height + margin)}px`)
+      const value = `${Math.ceil(header.offsetHeight + margin)}px`
+      if (phase.style.getPropertyValue('--dsh-aqua-header-overlap') !== value) {
+        phase.style.setProperty('--dsh-aqua-header-overlap', value)
+      }
     }
   }
   const headerResize = new ResizeObserver(updateHeaderBounds)

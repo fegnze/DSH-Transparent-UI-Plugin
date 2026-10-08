@@ -78,6 +78,9 @@ function hoverGated(): boolean {
 /** Whether the tilt may run on this pane right now. */
 function tiltable(spot: HTMLElement): boolean {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
+  // Native drag-region tracking and precise toolbar targets must not follow
+  // an animated 3D transform. Keep the glow, but leave the toolbar stationary.
+  if (spot.matches('header[data-window-drag]')) return false
   // The settings overlay renders INSIDE the sidebar column: tilting the
   // sidebar while the panel is open would re-anchor its fixed overlay into
   // the column — so the sidebar pauses while a dialog exists (the keeper
