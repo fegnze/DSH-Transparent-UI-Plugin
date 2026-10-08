@@ -91,3 +91,11 @@ test('package declares current store dependency and ships profile overlay', () =
   assert.ok(pkg.files.includes('cordis.patch.yml'))
   assert.equal(pkg.engines.dsh, '0.2.0-rc.2')
 })
+
+test('profile overlay imports the installed scoped package, not the obsolete npm name', async () => {
+  const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
+  const name = patch.match(/^\s+name:\s*['"]([^'"]+)['"]/m)?.[1]
+  assert.equal(name, pkg.name)
+  const host = await import(new URL('../lib/index.js', import.meta.url))
+  assert.equal(typeof host.apply, 'function')
+})
