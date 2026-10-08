@@ -790,6 +790,7 @@ export class AquaLayer {
   private applySettings(): void {
     const style = document.documentElement.style
     style.setProperty('--dsh-aqua-blur', `${this.settings.blur}px`)
+    style.setProperty('--dsh-aqua-settings-frost', String(this.settings.frost / 100 * 0.95))
     // Frost 0-100 → a 0-1.4 alpha multiplier (50 = 1x). Capped so max frost
     // stays translucent frosted glass instead of collapsing to a solid
     // opaque slab (the dark card would otherwise hit 100% and read as solid

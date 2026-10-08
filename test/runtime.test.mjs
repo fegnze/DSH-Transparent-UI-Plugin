@@ -94,6 +94,16 @@ test('client starts without removed settingsScope and exposes reachable settings
     const injected = options.inject(actions)
     for (const flag of ['whale', 'critters', 'mesh', 'spotlight', 'press']) handle.state[flag] = true
     assert.ok(component({ ...injected, t: key => key, useStore: selector => selector(handle.state) }))
+    if (options.id === 'aqua') {
+      injected.setBlur(40)
+      injected.setFrost(100)
+      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-blur'), '40px')
+      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-settings-frost'), '0.95')
+      injected.setBlur(0)
+      injected.setFrost(0)
+      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-blur'), '0px')
+      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-settings-frost'), '0')
+    }
   }
   toggle(false)
   assert.equal(window.document.documentElement.hasAttribute('data-dsh-aqua'), false)

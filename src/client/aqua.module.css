@@ -771,18 +771,27 @@ html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] body[
   transition: transform 0.1s ease-out;
 }
 
-/* ---------- Settings panel glass: material-only — a fixed 50px backdrop
-   blur with a scheme-differentiated translucent fill, applied in BOTH modes
-   (the gate is data-dsh-aqua, not the float attribute). The panel keeps its
-   stock layout, tokens and radius; only the surface turns glass. The `body`
-   hop out-ranks the compat generic glass (blur 12px on `panel` classes). ---------- */
+/* Dialog material follows the same live knobs, rather than fixed values. */
 [data-dsh-aqua] body [role='dialog'] {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(50px);
+  background: var(--dsh-aqua-glass-card-light);
+  backdrop-filter: blur(var(--dsh-aqua-blur, 14px));
 }
 
 [data-dsh-aqua] body[data-ds-dark-theme] [role='dialog'] {
-  background: rgba(17, 26, 39, 0.55);
+  background: var(--dsh-aqua-glass-card-dark);
+}
+
+/* Settings needs a legible plate: frost 0–100 maps to fill alpha 0–0.95.
+   Target its actual portal panel, not the overlay/mask, so only the surface
+   samples the backdrop and foreground controls remain fully opaque. */
+[data-dsh-aqua] body [data-shortcut-modal='settings'] {
+  background: rgb(255 255 255 / var(--dsh-aqua-settings-frost, 0.5));
+  backdrop-filter: blur(var(--dsh-aqua-blur, 14px));
+  animation: none;
+}
+
+[data-dsh-aqua] body[data-ds-dark-theme] [data-shortcut-modal='settings'] {
+  background: rgb(17 26 39 / var(--dsh-aqua-settings-frost, 0.5));
 }
 
 /* ---------- Sidebar: the selected session gets an accent bar and a soft halo. ---------- */
