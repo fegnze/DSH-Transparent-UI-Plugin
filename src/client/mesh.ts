@@ -176,7 +176,9 @@ export function mountMesh(host: HTMLElement): MeshHandle {
         ctx.stroke()
       }
     }
-    ctx.fillStyle = `${DOT_COLOR}${DOT_ALPHA})`
+    // Apply DOT_ALPHA only once through globalAlpha. Including it in the
+    // fillStyle too made idle nodes 0.3 × 0.3 = 0.09 (unlike static frames).
+    ctx.fillStyle = `${DOT_COLOR}1)`
     for (const dot of dots) {
       let r = 1.8
       let alpha = DOT_ALPHA

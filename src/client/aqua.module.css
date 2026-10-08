@@ -124,15 +124,16 @@
   background: transparent;
 }
 
-/* Background brightness knob: dark mode darkens (0 = pure black, 50 = off),
-   light mode brightens (50 = off, 100 = pure white) — the layer writes only
-   the overlay of the resolved scheme, so at most one layer is ever opaque.
-   Both layers live in ::after (painted ABOVE the fluid canvas / wallpaper
-   children); ::before would sit behind them and be invisible. */
+/* Paint order within the ambient layer: fluid (0), brightness veil (1),
+   decorations (2). Brightness adjusts the board, not the decorative contrast:
+   at light brightness 96 the 92%-white veil must NOT wash out the whale/mesh.
+   The whole ambient layer stays behind the app and never captures input. */
 [data-dsh-aqua] [data-dsh-aqua-ambient]::after {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background-image:
     linear-gradient(rgba(255, 255, 255, var(--dsh-aqua-brightness-white, 0)), rgba(255, 255, 255, var(--dsh-aqua-brightness-white, 0))),
     linear-gradient(rgba(0, 0, 0, var(--dsh-aqua-brightness-black, 0)), rgba(0, 0, 0, var(--dsh-aqua-brightness-black, 0)));
@@ -149,11 +150,11 @@
   to { opacity: 1; }
 }
 
-/* Fluid board canvas: the ported deepseek.com shader fills the whole
-   backdrop —one unified water under every column. The tone picker supplies
-   the palette (depth baked into the colors), so no global filter here. */
+/* Fluid board stays inside the sidebar bounds below the brightness veil.
+   The tone picker supplies the palette; decorations paint separately above. */
 [data-dsh-aqua] [data-dsh-aqua-fluid-canvas] {
   position: absolute;
+  z-index: 0;
   inset: 0 auto 0 var(--dsh-aqua-fluid-left, 0px);
   width: var(--dsh-aqua-fluid-width, 0px);
   height: 100%;
@@ -263,6 +264,14 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+/* Decorative engines remain above the brightness veil, but still inside
+   the negative-z ambient layer (below all foreground glass and content). */
+[data-dsh-aqua] [data-dsh-aqua-whale],
+[data-dsh-aqua] [data-dsh-aqua-mesh],
+[data-dsh-aqua] [data-aqua-critter] {
+  z-index: 2;
 }
 
 /* Ambient marine life: brand-fish silhouettes, shrimp, bubbles, plankton.
