@@ -34,7 +34,10 @@
   --dsh-aqua-glass-card-dark: color-mix(in srgb, rgb(34 38 47) calc(50% * var(--dsh-aqua-frost, 1)), transparent);
 }
 
-[data-dsh-aqua] [data-dsh-frame] {
+[data-dsh-aqua] [data-dsh-frame],
+/* DSH 0.2 desktop paints an additional opaque center-column base.
+   Clear that structural fill as well, not the readable foreground cards. */
+[data-dsh-aqua] [data-dsh-frame] > [class*='centerCol'] {
   background: transparent;
 }
 

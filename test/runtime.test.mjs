@@ -9,6 +9,11 @@ const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url
 
 test('client starts without removed settingsScope and exposes reachable settings', async () => {
   const window = new Window({ url: 'http://localhost/' })
+  // Reproduce the real desktop ancestor that hid painted ambient canvases.
+  window.document.head.innerHTML = '<style>._6Qf49G_centerCol { background: rgb(244, 248, 253); }</style>'
+  window.document.body.innerHTML = '<div data-dsh-frame><div class="_6Qf49G_sidebarCol"></div><div class="_6Qf49G_centerCol"><div data-phase="hero"></div></div></div>'
+  const center = window.document.querySelector('[class*="centerCol"]')
+  assert.equal(window.getComputedStyle(center).backgroundColor, 'rgb(244, 248, 253)')
   // Disable GPU-dependent decorations for a deterministic DOM lifecycle test.
   window.localStorage.setItem('dsh.ui-aqua.enabled', 'false')
   window.localStorage.setItem('dsh.ui-aqua.mode', 'compat')
@@ -78,6 +83,7 @@ test('client starts without removed settingsScope and exposes reachable settings
   assert.ok(window.document.querySelector('[data-dsh-aqua-ambient]'))
   assert.ok(window.document.querySelectorAll('[data-aqua-critter]').length > 0)
   assert.equal(window.getComputedStyle(window.document.body).isolation, 'isolate', 'negative-z ambient layer needs a body stacking context')
+  assert.ok(['transparent', 'rgba(0, 0, 0, 0)'].includes(window.getComputedStyle(center).backgroundColor), 'desktop center column must not cover painted ambient canvases')
   assert.equal(entries[0].options.store.state.enabled, true)
   assert.equal(entries[1].options.store.state.enabled, true)
   // Render both settings entries while enabled, including every decoration icon.
