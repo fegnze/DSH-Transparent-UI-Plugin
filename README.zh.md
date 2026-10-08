@@ -12,7 +12,6 @@ Aqua 为 DeepSeek Harness 提供可调节的玻璃质感主题：会话顶部操
 
 - **原项目／维护者：**[WYH66666666/DSH-Transparent-UI-Plugin](https://github.com/WYH66666666/DSH-Transparent-UI-Plugin) — [WYH66666666](https://github.com/WYH66666666)。
 - **原项目贡献者：**[imccyu](https://github.com/imccyu)。
-- **此前 DSH 适配：**[du-u-uck/DSH-Transparent-UI-Plugin](https://github.com/du-u-uck/DSH-Transparent-UI-Plugin)。
 - **DSH 0.1.5-rc.2 兼容适配：**[lllong0908/DSH-Transparent-UI-Plugin](https://github.com/lllong0908/DSH-Transparent-UI-Plugin)。
 - **本 DSH 0.2.0-rc.2 桌面兼容分支：**[fegnze/DSH-Transparent-UI-Plugin](https://github.com/fegnze/DSH-Transparent-UI-Plugin)。
 

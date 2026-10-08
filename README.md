@@ -12,7 +12,6 @@ The original theme, visual design and implementation belong to the original proj
 
 - **Original project / maintainer:** [WYH66666666/DSH-Transparent-UI-Plugin](https://github.com/WYH66666666/DSH-Transparent-UI-Plugin) — [WYH66666666](https://github.com/WYH66666666).
 - **Original project contributor:** [imccyu](https://github.com/imccyu).
-- **Prior DSH adaptation:** [du-u-uck/DSH-Transparent-UI-Plugin](https://github.com/du-u-uck/DSH-Transparent-UI-Plugin).
 - **DSH 0.1.5-rc.2 compatibility adaptation:** [lllong0908/DSH-Transparent-UI-Plugin](https://github.com/lllong0908/DSH-Transparent-UI-Plugin).
 - **This DSH 0.2.0-rc.2 desktop compatibility fork:** [fegnze/DSH-Transparent-UI-Plugin](https://github.com/fegnze/DSH-Transparent-UI-Plugin).
 
