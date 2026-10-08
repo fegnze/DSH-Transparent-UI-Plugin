@@ -1,54 +1,112 @@
-# @deepseek-ai/dsh-client-ui-aqua
+# Aqua — DSH 透明玻璃主题插件
 
-[English](README.md) | 中文
+[English](<README.md>) | 中文
 
-## DSH 0.2.0-rc.2 客户端适配（1.3.6）
+Aqua 为 DeepSeek Harness 提供可调节的玻璃质感主题：会话顶部操作栏、侧边栏、输入框、统计栏和设置面板使用半透明材质，左侧流体背景、粒子鲸鱼与交互网格位于应用内容下方。
 
-修复“可以安装但主题不执行”：移除当前运行时已不存在的 `settingsScope` 注入和绑定，将已移除的 `settings.plugin.item` 总开关迁移到 `settings.general.item`，并用实际使用的 `dsh-client-store` 替换过时的 runtime peer。
+**本仓库是桌面版兼容适配分支，不是原主题项目。**
 
-已对照桌面版内置接口检查，并通过模拟 DOM 的模块加载、设置注册、主题启用/关闭和清理测试；**尚未完成真实桌面窗口的视觉验收**，视频/WebGL/其他插件组合仍需现场验证。
+## 来源与署名
 
-### 来源与署名
+原主题、视觉设计和原始实现归属于原项目及其贡献者：
 
-- 原项目：[WYH66666666/DSH-Transparent-UI-Plugin](https://github.com/WYH66666666/DSH-Transparent-UI-Plugin)
-- 原项目贡献者：[imccyu](https://github.com/imccyu)
-- 此前 DSH 适配：[du-u-uck/DSH-Transparent-UI-Plugin](https://github.com/du-u-uck/DSH-Transparent-UI-Plugin)
-- DSH 0.1.5-rc.2 兼容更新：[lllong0908/DSH-Transparent-UI-Plugin](https://github.com/lllong0908/DSH-Transparent-UI-Plugin)
+- **原项目／维护者：**[WYH66666666/DSH-Transparent-UI-Plugin](https://github.com/WYH66666666/DSH-Transparent-UI-Plugin) — [WYH66666666](https://github.com/WYH66666666)。
+- **原项目贡献者：**[imccyu](https://github.com/imccyu)。
+- **此前 DSH 适配：**[du-u-uck/DSH-Transparent-UI-Plugin](https://github.com/du-u-uck/DSH-Transparent-UI-Plugin)。
+- **DSH 0.1.5-rc.2 兼容适配：**[lllong0908/DSH-Transparent-UI-Plugin](https://github.com/lllong0908/DSH-Transparent-UI-Plugin)。
+- **本 DSH 0.2.0-rc.2 桌面兼容分支：**[fegnze/DSH-Transparent-UI-Plugin](https://github.com/fegnze/DSH-Transparent-UI-Plugin)。
 
-二次分发时请保留原项目和此前适配者的署名。固定贡献者列表见 [CONTRIBUTORS.md](CONTRIBUTORS.md)，完整说明见 [UPSTREAM_NOTICE.md](UPSTREAM_NOTICE.md)。
+本分支主要修复安装、客户端 API 兼容性、桌面渲染与交互问题，不替代原项目的作者身份。二次分发时请保留原项目、原贡献者及历次适配者的署名。贡献者列表见 [CONTRIBUTORS.md](<CONTRIBUTORS.md>)，来源说明见 [UPSTREAM_NOTICE.md](<UPSTREAM_NOTICE.md>)。
 
-> [!WARNING]
-> `dsh plugin --profile web add dsh-client-ui-aqua` **不会**安装本兼容更新。该命令会下载旧的 npm 包 `dsh-client-ui-aqua@1.3.1`，其中仍然引用已被 `DSH 0.1.5-rc.2` 移除的 `@deepseek-ai/dsh-client-runtime/client`，会导致模块加载失败。请使用下方的 GitHub 安装器或本地源码安装方式。
+沿用 [GNU AGPL-3.0 许可证](<LICENSE>)；包元数据声明为 `AGPL-3.0-only`。
 
-Aqua 是一层高自由度的玻璃质感主题，套在 DeepSeek Harness 网页端。顶栏、侧边栏、输入框、统计行、轨迹视图都成了磨砂玻璃片,你还可以添加视频和图片作为背景。关掉开关就回到原生界面，不改 DSH 任何一行源码。
+## 兼容范围
 
-![](assets/1.png)
+| 项目 | 当前目标 |
+| --- | --- |
+| 插件包名 | `@deepseek-ai/dsh-client-ui-aqua` |
+| 当前插件版本 | `1.3.19` |
+| 目标 DSH 版本 | 桌面版 `0.2.0-rc.2` |
+| 桌面配置 Profile | `desktop` |
+| 推荐安装来源 | 本 GitHub 仓库的 `main` 分支 |
 
-![](assets/2.png)
+其他 DSH 版本不保证兼容。旧版 Web CLI 可以运行，不代表它与桌面 Host 兼容；不要使用旧版 `dsh` CLI 修改桌面 Profile。
 
-![](assets/3.png)
+## 安装与更新
 
-![](assets/4.png)
+### 在当前桌面版安装
 
-## 特性
+1. 打开桌面版的**插件管理器**页面，选择**添加插件**。
+2. 输入本仓库地址：
 
-- **双模式**：**云母效果**把布局改成悬浮玻璃卡片（模糊度、磨砂度可调）；**兼容模式**保持原版排版一字不动，只把材质换成通用玻璃，其他插件的界面也会自动玻璃化
-- **背景自由**：流体板（颜色可调）或自定义壁纸（铺满页面、比例不变，可单独调模糊度/磨砂度）；浅色壁纸配浅色模式、深色壁纸配深色模式观感更佳
-- **背景亮度**：自动跟随深浅模式——深色模式 0–50 压暗、浅色模式 50–100 提亮，50 原样
-- **粒子鲸鱼**：deepseek.com/harness 同款粒子鱼（官网粒子引擎移植），显示在聊天区域正中央（不含侧边栏），深色模式白粒子、浅色模式灰粒子，设置里可开关
-- **Harness 光泽铭牌**：深色模式下侧边栏铭牌换成官网同款「Harness」药丸（135° 渐变描边 + 柔光），浅色模式保持原版铭牌
-- **边缘渐变模糊**：页面顶部/底部各 5px 渐变模糊带，悬浮在聊天内容上层，内容滚到边缘渐入模糊；浅色微泛白、深色微泛黑
-- 一键开关：关闭即完全还原原生界面，所有效果随插件卸载一并消失
+   ```text
+   https://github.com/fegnze/DSH-Transparent-UI-Plugin
+   ```
 
-## 安装
+3. 使用 `main` 分支（默认）；安装完成后，按提示启用插件。
+4. 刷新整个桌面窗口，再打开**设置 → 通用设置 → 玻璃主题**。
 
-### 当前桌面版（推荐）
+> [!IMPORTANT]
+> DSH `0.2.0-rc.2` 的插件管理界面暂不提供原地升级或新版检查。更新本 GitHub 安装需要**先卸载旧版，再用上述仓库地址重新安装，最后刷新整个桌面窗口**。插件列表的「刷新」只重新读取已安装状态，不会下载新提交。重装后请确认实际安装版本。
 
-在桌面版 **设置 → 插件管理器** 中使用 GitHub 来源 `https://github.com/fegnze/DSH-Transparent-UI-Plugin`，选择 `main`。更新已安装版本时确保拉取新的提交，而不是重复使用旧缓存；安装后刷新桌面窗口。
+主题视觉参数保存在当前界面来源的 localStorage 中，视频媒体／文件句柄可能使用 IndexedDB。插件关闭或清理时不会主动删除这些偏好；清除应用站点数据可能重置它们。安装新版本不会自动重置你已经保存的滑块值。
 
-桌面版使用 `desktop` profile，下面旧版安装器针对 `web` profile，不能代替桌面安装。不要使用本机旧版 `dsh` CLI 修改桌面 profile。
+### 不要混淆旧 npm 包与本分支
 
-### 本地构建与回归测试
+下面的旧版命令指向另一个**未带作用域的包**，不是本仓库：
+
+```sh
+dsh plugin --profile web add dsh-client-ui-aqua
+```
+
+它不是本桌面适配版的安装或更新方式。旧的未带作用域构建使用过已移除的客户端 runtime API；请使用上面的 GitHub 来源，不要假定 npm 会解析到本仓库的最新版本。
+
+继承保留的 [PowerShell 安装器](<install.ps1>) 面向旧版 Web 配置，仅作历史工具保留，**不作为推荐的桌面安装入口**。
+
+## 功能与使用
+
+总开关和调节项位于**设置 → 通用设置**。关闭主题后总开关仍可访问，额外调节项会隐藏；调节时参数即时应用于当前界面。
+
+- **云母效果：**使用悬浮玻璃片和主题布局。顶栏、输入框／统计栏外层、设置面板共用主玻璃材质。
+- **兼容模式：**尽量保留宿主排版，采用较保守的玻璃处理。玻璃模糊度和磨砂度调节项在云母模式显示。
+- **侧栏流体：**流体画布随左侧栏实际宽度调整，支持缩放和折叠；可调色调、颜色深浅，不再铺满聊天主区域。
+- **图片／视频壁纸：**作为另一种背景来源，提供独立媒体调节；可用性取决于浏览器存储、文件访问权限和解码能力。
+- **粒子鲸鱼、小鱼、网状交互：**可分别开关的背景装饰。亮度遮罩位于装饰下方，提亮背景不会将装饰一起冲淡；前景卡片、弹窗遮罩和玻璃模糊仍会正常遮盖它们。
+- **鼠标辉光／悬停下压：**顶栏保留辉光，但原生会话顶栏不参与几何倾斜，避免交互控件随鼠标移动。
+- **顶栏背后滚动：**云母模式下的活动会话允许聊天内容从顶栏背后经过，重叠范围根据实际顶栏高度计算。
+- **主题开关：**关闭时移除主题视觉覆盖和装饰引擎，不修改 DSH 应用源码。
+
+### 材质参数
+
+模糊度与磨砂度是两种控制：**模糊度让背景细节变模糊，磨砂度调节玻璃填充的遮盖程度**。不会用元素整体透明度同时淡化文字和按钮。
+
+| 参数 | 范围／当前行为 |
+| --- | --- |
+| 玻璃模糊度 | `0–40px`；无已有偏好时默认 `20px` |
+| 磨砂度 | `0–100`；无已有偏好时默认 `7` |
+| 主玻璃浅色填充 | 白色基础填充 `42% × min(磨砂度 / 50, 1.4)` |
+| 主玻璃深色填充 | 中性冷灰基础填充 `50% × min(磨砂度 / 50, 1.4)` |
+| 背景亮度 | `50` 原样；浅色模式 `50–100` 提亮，深色模式 `0–50` 压暗 |
+| 网格线条／静止节点 | Alpha `0.15 / 0.3`；鼠标交互时可局部突出节点 |
+
+顶栏、输入栏、设置面板共用这些主材质参数；背后的内容、弹窗遮罩与阴影不同，视觉观感仍可能不同。输入框与统计栏融合时只由**一个外层玻璃片**承载材质，不重复叠加填充。其他小型表面可能保留各自的基础透明度配方。
+
+> [!NOTE]
+> 启用 Aqua 后，浮动会话顶栏及其子元素**不作为窗口拖拽区域**，避免 Electron 原生拖拽区域吞掉点击。请使用窗口其他拖拽区域；插件不修改这些其他区域。
+
+## 本分支的适配内容
+
+- 将已移除的 runtime／设置 API 迁移到当前 store 和通用设置插槽，修正带作用域的组合包身份及图标导出。
+- 隔离独立编译的 CSS Module 标识符，避免设置布局发生样式串扰。
+- 清除当前桌面布局中遮住装饰画布的不透明结构底色。
+- 限制流体为左侧栏，修正网格节点透明度重复相乘，并将装饰对比度与背景亮度分层处理。
+- 统一主玻璃材质，恢复按实际高度计算的顶栏背后滚动，并以足够优先级覆盖顶栏原生拖拽规则。
+
+这些是基于原主题的兼容和行为调整，不代表本分支原创整个主题，也不保证全部 DSH／插件组合都能正常工作。
+
+## 开发与验证
+
+使用 Node.js `22+`。构建需要 `esbuild`，模拟 DOM 测试还需要 `happy-dom`。环境可以安装声明的 DSH 开发包时：
 
 ```sh
 npm install --legacy-peer-deps
@@ -56,56 +114,39 @@ npm run bundle
 npm test
 ```
 
-构建已独立于原作者的 monorepo 和 Windows 绝对路径。测试使用模拟 DOM，不等同于真实 GPU/桌面视觉验收。
-
-### 旧版 Web 安装器（仅供参考）
-
-不需要 npm、不需要 git（自动退回 zip 下载）。
-
-**Windows（一条命令）：**
-
-```powershell
-powershell -ExecutionPolicy Bypass -Command "Invoke-WebRequest 'https://github.com/lllong0908/DSH-Transparent-UI-Plugin/raw/main/install.ps1' -OutFile install.ps1; .\install.ps1"
-```
-
-默认安装**最新发布版**。脚本会把插件链接进 profile 的 `node_modules`，并在 `cordis.patch.yml` 里登记 `ui-aqua`（幂等，重复跑不会重复登记）。
-
-指定版本或跟随开发分支：
-
-```powershell
-.\install.ps1 -Version 'v1.3.3'   # 指定某个发布版
-.\install.ps1 -Version 'main'     # 开发分支
-```
-
-**macOS / Linux（手动，三步）：**
+独立检出、没有原 DSH monorepo 或无法获取其开发包时，可仅在隔离目录安装构建／测试工具（POSIX 示例，在仓库根目录执行）：
 
 ```sh
-git clone --depth 1 --branch v1.3.3 https://github.com/lllong0908/DSH-Transparent-UI-Plugin.git
-ln -s "$PWD/DSH" "$DSH_HOME/profiles/node_modules/@deepseek-ai/dsh-client-ui-aqua"
+npm install --prefix .npm-stage/build-tools --no-package-lock esbuild@^0.25.12 happy-dom@^20.0.0
+# 仅适用于尚无 node_modules 目录的新检出：
+ln -s .npm-stage/build-tools/node_modules node_modules
+npm run bundle
+npm test
 ```
 
-然后往 `$DSH_HOME/profiles/web/cordis.patch.yml` 追加：
+[构建脚本](<scripts/build.mjs>) 生成 Host 入口和 DSH Module Loader 客户端包。本仓库随源码提供可运行的构建包，使 GitHub 安装不依赖原作者的 monorepo。DSH 客户端 peer 由桌面 Host 提供；隔离工具安装不会让插件成为独立 Web 应用。
 
-```yaml
-- insert:
-    - id: ui-aqua
-      name: '@deepseek-ai/dsh-client-ui-aqua'
-```
-
-### 不支持：npm 一键安装
+可选的真实 Chromium 交互回归（自行指定浏览器可执行文件）：
 
 ```sh
-dsh plugin --profile web add dsh-client-ui-aqua
+DSH_TEST_CHROME='/path/to/chrome' npm run test:browser
 ```
 
-npm 当前提供的是原上游仓库发布的 `dsh-client-ui-aqua@1.3.1`。它不是本仓库的 `DSH 0.1.5-rc.2` 兼容构建，会产生模块表/导入错误。
+[浏览器回归脚本](<test/toolbar.browser.mjs>) 使用独立无头测试页，包含桌面拖拽规则、`display:contents` 插槽包装、顶栏背后滚动和正文高层级遮挡元素。检查实际拖拽排除样式、稳定的悬停位置，并分别在悬停下压开启／关闭时验证**连续 100 次输入点击**。临时测试页／浏览器 Profile 位于已忽略的 `.npm-stage/`。
 
-如果已经执行过该命令，请先移除旧包，再安装本仓库：
+### 验证边界
 
-```powershell
-dsh plugin --profile web remove dsh-client-ui-aqua
-```
+- `npm test`：模拟 DOM 的生命周期、设置和材质检查，以及带记录的 Canvas 绘制调用；不是 GPU 视觉测试。
+- `npm run test:browser`：真实 Chromium 测试页的命中检查；**不会连接真实 DSH 桌面，也不能验证 Electron 的 macOS 原生输入路由**。
+- 最新顶栏修复、原生窗口行为、视频／WebGL、与其他插件组合，仍需要真实桌面验收。
 
-## 使用
+反馈问题时请提供 DSH 版本、实际安装的插件版本、云母／兼容模式、深浅色模式、相关滑块值，以及截图或控制台错误。不要向公开 Issue 粘贴聊天正文、凭证或私密文件数据。本分支问题请提交至[本仓库 Issue](https://github.com/fegnze/DSH-Transparent-UI-Plugin/issues)。
 
-刷新 Web 界面。Aqua **默认开启**；总开关在 **设置 → 通用设置 → 外观下方的玻璃主题卡片**（关闭主题后仍可访问），其余全部调节在 **设置 → 通用设置 → 外观** 的正下方（无独立标题）：模式、模糊度/磨砂度（云母模式）、流体颜色、背景亮度、背景（流体/壁纸）、壁纸设置，以及粒子鲸鱼开关。总开关关闭时，外观下方的整块调节自动隐藏。
+## 原项目效果示例
+
+下列图片继承自上游仓库，用于展示原主题。**不是本分支当前桌面验收截图**；流体显示范围及其他细节可能与本分支不同。
+
+![原项目 Aqua 示例 1](<assets/1.png>)
+![原项目 Aqua 示例 2](<assets/2.png>)
+![原项目 Aqua 示例 3](<assets/3.png>)
+![原项目 Aqua 示例 4](<assets/4.png>)

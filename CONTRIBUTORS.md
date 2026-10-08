@@ -18,6 +18,14 @@ This file is the fixed attribution list for this compatibility repository. GitHu
 - [lllong0908](https://github.com/lllong0908): compatibility fixes, documentation, release maintenance, and live DSH Web verification
 - Compatibility repository: https://github.com/lllong0908/DSH-Transparent-UI-Plugin
 
+## DSH 0.2.0-rc.2 desktop compatibility fork
+
+- [fegnze](https://github.com/fegnze): maintainer of this desktop compatibility fork
+- Current repository: https://github.com/fegnze/DSH-Transparent-UI-Plugin
+- Scope: client API/build compatibility, desktop glass material, ambient layering, and toolbar interaction fixes
+
+This section identifies the current fork separately; it does not replace the original project or earlier adaptation credits above.
+
 ## GitHub automatic widget
 
 GitHub's repository homepage Contributors area is commit-history based and may initially remain empty while its background statistics job is computing. The live contributor API and contributor graph data can already contain users before that homepage cache refreshes.

@@ -1,55 +1,112 @@
-# @deepseek-ai/dsh-client-ui-aqua
+# Aqua — DSH Transparent UI Plugin
 
-English | [中文](README.zh.md)
+English | [中文](<README.zh.md>)
 
-## DSH 0.2.0-rc.2 client port (1.3.6)
+A customizable glass theme for DeepSeek Harness. The conversation toolbar, sidebar, composer, statistics bar and settings panel use translucent surfaces, with a sidebar fluid backdrop, a particle whale and an interactive mesh behind the application content.
 
-Fixes installation without client activation: removes the missing `settingsScope` dependency/binding, moves the master switch from the removed `settings.plugin.item` to `settings.general.item`, and replaces the obsolete runtime peer with the store module actually used by the client.
+**This repository is a desktop compatibility fork, not the original theme project.**
 
-Checked against the desktop application's bundled interfaces. Simulated-DOM tests cover module loading, settings registration, theme enable/disable and cleanup. **Real desktop visual acceptance is still pending**; video, WebGL and other plugin combinations require live verification.
+## Origin and attribution
 
-### Attribution
+The original theme, visual design and implementation belong to the original project and its contributors:
 
-- Original project: [WYH66666666/DSH-Transparent-UI-Plugin](https://github.com/WYH66666666/DSH-Transparent-UI-Plugin)
-- Original contributor: [imccyu](https://github.com/imccyu)
-- Prior DSH adaptation: [du-u-uck/DSH-Transparent-UI-Plugin](https://github.com/du-u-uck/DSH-Transparent-UI-Plugin)
-- DSH 0.1.5-rc.2 compatibility update: [lllong0908/DSH-Transparent-UI-Plugin](https://github.com/lllong0908/DSH-Transparent-UI-Plugin)
+- **Original project / maintainer:** [WYH66666666/DSH-Transparent-UI-Plugin](https://github.com/WYH66666666/DSH-Transparent-UI-Plugin) — [WYH66666666](https://github.com/WYH66666666).
+- **Original project contributor:** [imccyu](https://github.com/imccyu).
+- **Prior DSH adaptation:** [du-u-uck/DSH-Transparent-UI-Plugin](https://github.com/du-u-uck/DSH-Transparent-UI-Plugin).
+- **DSH 0.1.5-rc.2 compatibility adaptation:** [lllong0908/DSH-Transparent-UI-Plugin](https://github.com/lllong0908/DSH-Transparent-UI-Plugin).
+- **This DSH 0.2.0-rc.2 desktop compatibility fork:** [fegnze/DSH-Transparent-UI-Plugin](https://github.com/fegnze/DSH-Transparent-UI-Plugin).
 
-Please keep the original project and prior adaptation credits when redistributing this work. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the fixed contributor list and [UPSTREAM_NOTICE.md](UPSTREAM_NOTICE.md) for the full notice.
+This fork focuses on installation, client API compatibility and desktop rendering/interaction fixes. It does not replace the original authorship. Please retain the original project, contributor and prior adaptation credits when redistributing. See [CONTRIBUTORS.md](<CONTRIBUTORS.md>) and [UPSTREAM_NOTICE.md](<UPSTREAM_NOTICE.md>) for attribution details.
 
-> [!WARNING]
-> `dsh plugin --profile web add dsh-client-ui-aqua` does **not** install this compatibility update. It downloads the old npm package `dsh-client-ui-aqua@1.3.1`, which still imports the removed `@deepseek-ai/dsh-client-runtime/client` module and fails on `DSH 0.1.5-rc.2`. Use the GitHub installer or local-source installation below.
+Distributed under [GNU AGPL-3.0](<LICENSE>); package metadata declares `AGPL-3.0-only`.
 
+## Compatibility
 
-Aqua is a highly customizable glassmorphism theme for the DeepSeek Harness web UI. The header, sidebar, composer, stats line, and trajectory view all become panes of frosted glass. you can put video for wallpaper and Switch it off and the stock UI comes back exactly, with no source changes to DSH itself.
+| Item | Current target |
+| --- | --- |
+| Plugin package | `@deepseek-ai/dsh-client-ui-aqua` |
+| Current plugin version | `1.3.19` |
+| Target DSH version | Desktop `0.2.0-rc.2` |
+| Desktop profile | `desktop` |
+| Recommended installation | This GitHub repository, branch `main` |
 
-![](assets/1.png)
+Other DSH versions are not guaranteed. A working legacy Web CLI does not prove compatibility with the desktop Host. Do not use an older `dsh` CLI to modify the desktop profile.
 
-![](assets/2.png)
+## Install and upgrade
 
-![](assets/3.png)
+### Install in the current desktop application
 
-![](assets/4.png)
+1. Open the desktop **Plugin manager** page and choose **Add plugin**.
+2. Enter this repository URL:
 
-## Features
+   ```text
+   https://github.com/fegnze/DSH-Transparent-UI-Plugin
+   ```
 
-- **Two modes**: **Mica** restyles the layout into floating glass cards (blur and frost adjustable), while **Compatibility Mode** keeps the stock layout byte-for-byte and only swaps the material to generic glass — other plugins' UI gets the same treatment automatically
-- **Free backdrop**: a living fluid board (hue adjustable) or your own wallpaper (fills the page, aspect preserved, with its own blur and frost); light wallpapers look best in light mode, dark wallpapers in dark mode
-- **Background brightness**: follows the resolved scheme — dark mode darkens (0–50), light mode brightens (50–100), 50 is unchanged
-- **Particle whale**: the deepseek.com/harness centerpiece fish (a 2D port of the site's particle engine), centered in the chat area right of the sidebar — white particles on dark, gray on light, toggleable in settings
-- **Glossy "Harness" badge**: in dark mode the sidebar wordmark wears the official nameplate pill (135° gradient ring + soft glow); light mode keeps the stock plate
-- **Edge fades**: 5px gradient blur bands pinned to the top and bottom of the page, above the chat content — scrolling content melts into the edges; faint white veil on light, faint black on dark
-- One switch: off restores the stock UI exactly, and every effect is removed with the plugin
+3. Use branch `main` (the default); install and enable the plugin if prompted.
+4. Reload the whole desktop window, then open **Settings → General → Glass theme**.
 
-## Installation
+> [!IMPORTANT]
+> DSH `0.2.0-rc.2` does **not** provide an in-place upgrade or new-version check in its plugin management UI. To upgrade this GitHub installation, **uninstall the old plugin, reinstall the repository above, then reload the whole desktop window**. The list's Refresh action only reloads installed-plugin state; it does not download new commits. Check the installed version after reinstalling.
 
-### Current desktop application (recommended)
+The theme stores its visual preferences in the current UI origin's localStorage (video media/handles may use IndexedDB). The plugin's teardown does not explicitly erase these preferences. Clearing the application's site data can reset them; a new plugin version does not automatically reset your slider values.
 
-Use the desktop **Settings → Plugin manager** with GitHub source `https://github.com/fegnze/DSH-Transparent-UI-Plugin`, branch `main`. DSH 0.2.0-rc.2 has no in-place upgrade or update check in this UI: uninstall the old plugin, reinstall the source, then reload the desktop window. Refreshing the plugin list does not fetch a newer version.
+### Do not confuse this fork with the old npm package
 
-Desktop uses the `desktop` profile. The legacy installer below targets `web` and is not a desktop installation procedure. Do not modify the desktop profile with an older CLI runtime.
+The legacy command below addresses a **different, unscoped package**, not this fork:
 
-### Local build and regression tests
+```sh
+dsh plugin --profile web add dsh-client-ui-aqua
+```
+
+It is not an installation or upgrade procedure for this desktop adaptation. The old unscoped build used removed client runtime APIs. Use the GitHub source above, rather than assuming npm resolves this repository's current version.
+
+The inherited [PowerShell installer](<install.ps1>) targets the older Web setup. It is retained as historical tooling, **not** as the recommended desktop installer.
+
+## Features and usage
+
+The master switch and controls are in **Settings → General**. The master switch remains accessible when the theme is off; the additional controls are hidden while disabled. Changes apply to the current UI as the controls are adjusted.
+
+- **Mica mode:** floating glass panes and themed layout. Toolbar, composer/statistics wrapper and settings panel share the same primary glass material.
+- **Compatibility mode:** retains the host layout as much as possible and applies a more conservative glass treatment. Blur/frost controls are shown in Mica mode.
+- **Sidebar fluid:** the fluid canvas follows the left sidebar's actual width, including resize/collapse. Hue and color depth are adjustable; the fluid no longer fills the chat column.
+- **Image/video wallpaper:** an alternative backdrop with separate media controls. Availability depends on browser storage, file access and media decoding.
+- **Particle whale, small fish and interactive mesh:** independently switchable background decorations. Brightness adjustment sits below the decorations, so brightening the board does not whiten them out. Foreground cards, modal masks and glass blur can still obscure them normally.
+- **Cursor glow and hover press:** glow remains on the toolbar; geometric hover tilt is deliberately excluded from the native conversation toolbar to keep its controls stationary.
+- **Under-toolbar scrolling:** in active Mica conversations, transcript content can scroll behind the toolbar; overlap follows the measured toolbar height.
+- **Theme toggle:** disabling the theme removes its visual overrides and ambient engines without editing DSH application source.
+
+### Material parameters
+
+Blur and frost are different controls: **blur softens background detail**, while **frost changes the translucent surface fill**. Element text and buttons are not faded with an overall opacity.
+
+| Parameter | Range / current behavior |
+| --- | --- |
+| Glass blur | `0–40px`; fresh-install default `20px` |
+| Frost | `0–100`; fresh-install default `7` |
+| Primary light glass | White base fill `42% × min(frost / 50, 1.4)` |
+| Primary dark glass | Neutral cool-gray base fill `50% × min(frost / 50, 1.4)` |
+| Background brightness | `50` unchanged; light mode `50–100` brightens, dark mode `0–50` darkens |
+| Mesh lines / idle nodes | Alpha `0.15 / 0.3`; pointer interaction can locally emphasize nodes |
+
+The toolbar, composer and settings panel share these primary material values. They can still look different because of different backdrop content, modal masks and shadows. The fused composer/statistics bar uses **one outer glass plate**, not two stacked fills. Other small surfaces may retain their own base alpha recipes.
+
+> [!NOTE]
+> With Aqua enabled, the floating conversation toolbar and its descendants are **non-draggable** to avoid Electron window-drag regions consuming clicks. Use other window drag areas. The plugin does not change those other regions.
+
+## What this fork changes
+
+- Migrates removed runtime/settings APIs to the current store and General-settings slot, and fixes scoped bundle identity and icon exports.
+- Keeps independently compiled CSS module identifiers distinct to avoid settings layout collisions.
+- Removes opaque structural fills that concealed ambient canvases in the current desktop layout.
+- Restricts the fluid to the sidebar, fixes mesh node double-alpha multiplication and separates decoration contrast from backdrop brightness.
+- Unifies primary glass surfaces, restores measured under-toolbar scrolling, and overrides the native toolbar drag rule with sufficient specificity.
+
+These are compatibility and behavior changes on top of the original theme. They are not claims of original authorship or universal support for every DSH/plugin combination.
+
+## Development and verification
+
+Use Node.js `22+`. The build requires `esbuild`; the simulated-DOM tests also require `happy-dom`. If the declared DSH development packages are available in your environment:
 
 ```sh
 npm install --legacy-peer-deps
@@ -57,64 +114,39 @@ npm run bundle
 npm test
 ```
 
-The build no longer needs the original author's monorepo or Windows paths. `npm test` uses a simulated DOM and instrumented draw calls, not a real desktop GPU/visual acceptance run.
+For a standalone checkout without the original DSH monorepo or access to its development packages, install only the build/test tools in an isolated directory (POSIX example, run from the repository root):
 
-Optional real Chromium toolbar regression (Node 22+, use your own browser executable):
+```sh
+npm install --prefix .npm-stage/build-tools --no-package-lock esbuild@^0.25.12 happy-dom@^20.0.0
+# Only for a fresh checkout with no existing node_modules directory:
+ln -s .npm-stage/build-tools/node_modules node_modules
+npm run bundle
+npm test
+```
+
+The [build script](<scripts/build.mjs>) creates the Host entry and DSH module-loader client bundle. This repository ships the generated runtime bundle so GitHub installations can run without the original author's monorepo. DSH client peers are provided by the desktop Host; the isolated build tools do not make it a standalone web application.
+
+Optional Chromium interaction regression (supply your own browser executable):
 
 ```sh
 DSH_TEST_CHROME='/path/to/chrome' npm run test:browser
 ```
 
-This launches an isolated headless fixture with the desktop drag rules, display-contents slot wrappers, under-header scrolling and a high-z body overlay. It verifies the computed native drag exclusion, stationary hover geometry and 100 consecutive input clicks with press enabled/disabled. It does not attach to the live desktop and cannot verify Electron's macOS native hit routing. Enabling Aqua deliberately makes the floating toolbar non-draggable; other desktop drag areas remain unchanged. Temporary browser profiles stay under the ignored `.npm-stage/` directory.
+The [browser regression](<test/toolbar.browser.mjs>) uses an isolated headless fixture with desktop drag rules, display-contents slot wrappers, under-toolbar scrolling and a high-z body overlay. It checks computed drag exclusions, stable hover geometry and **100 consecutive input clicks**, with hover press enabled/disabled. Temporary fixture/browser profiles stay under ignored `.npm-stage/`.
 
-### Legacy Web installer (reference only)
+### Verification boundaries
 
-No npm account and no git needed (falls back to a plain zip download).
+- `npm test`: simulated DOM lifecycle/settings/material checks and instrumented Canvas draw calls; not a GPU visual test.
+- `npm run test:browser`: real Chromium fixture hit-testing; **not** attachment to the live DSH desktop or a test of Electron's macOS native input routing.
+- Live desktop acceptance is still required for the latest toolbar fix, native window behavior, video/WebGL and combinations with other plugins.
 
-**Windows (one command):**
+When reporting a problem, include the DSH version, installed plugin version, Mica/Compatibility mode, color scheme, relevant slider values and a screenshot or Console error. Do not paste chat contents, credentials or private file data into a public issue. Report fork-specific issues to [this repository's issue tracker](https://github.com/fegnze/DSH-Transparent-UI-Plugin/issues).
 
-```powershell
-powershell -ExecutionPolicy Bypass -Command "Invoke-WebRequest 'https://github.com/lllong0908/DSH-Transparent-UI-Plugin/raw/main/install.ps1' -OutFile install.ps1; .\install.ps1"
-```
+## Upstream visual examples
 
-Installs the **latest release** by default. The script links the plugin into the profile's `node_modules` and registers `ui-aqua` in `cordis.patch.yml` (idempotent - safe to run again).
+The images below are retained from the inherited repository and illustrate the original theme. **They are not screenshots of this fork's current desktop acceptance tests**; fluid placement and other details can differ.
 
-Pin a version or track the dev branch:
-
-```powershell
-.\install.ps1 -Version 'v1.3.3'   # a specific release
-.\install.ps1 -Version 'main'     # the development branch
-```
-
-**macOS / Linux (manual, three steps):**
-
-```sh
-git clone --depth 1 --branch v1.3.3 https://github.com/lllong0908/DSH-Transparent-UI-Plugin.git
-ln -s "$PWD/DSH" "$DSH_HOME/profiles/node_modules/@deepseek-ai/dsh-client-ui-aqua"
-```
-
-then append to `$DSH_HOME/profiles/web/cordis.patch.yml`:
-
-```yaml
-- insert:
-    - id: ui-aqua
-      name: '@deepseek-ai/dsh-client-ui-aqua'
-```
-
-### Not supported: npm one-liner
-
-```sh
-dsh plugin --profile web add dsh-client-ui-aqua
-```
-
-The npm registry currently serves `dsh-client-ui-aqua@1.3.1` from the original upstream repository. That package is not the `DSH 0.1.5-rc.2` compatibility build and will produce a module-table/import error.
-
-If it was already installed, remove it before installing this fork:
-
-```powershell
-dsh plugin --profile web remove dsh-client-ui-aqua
-```
-
-## Usage
-
-Reload the web UI. Aqua is **on by default**; the master switch lives in **Settings → General → Glass theme, below Appearance** (always accessible, even while disabled), and every other control sits directly under **Settings → General → Appearance** (no title of its own): mode, blur/frost (Mica mode), fluid color, background brightness, backdrop (fluid/wallpaper) with its wallpaper controls, and the particle-whale toggle. With the master switch off, the whole control block under Appearance is hidden.
+![Upstream Aqua example 1](<assets/1.png>)
+![Upstream Aqua example 2](<assets/2.png>)
+![Upstream Aqua example 3](<assets/3.png>)
+![Upstream Aqua example 4](<assets/4.png>)
