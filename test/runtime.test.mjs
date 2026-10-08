@@ -91,6 +91,16 @@ test('client starts without removed settingsScope and exposes reachable settings
   for (const dispose of disposers.reverse()) dispose()
   assert.equal(window.document.documentElement.hasAttribute('data-dsh-aqua'), false)
   assert.equal(window.document.querySelectorAll('style[data-plugin-css]').length, 4)
+  // Compiling CSS modules independently must not reuse minified class names.
+  const classOwners = new Map()
+  for (const style of window.document.querySelectorAll('style[data-plugin-css]')) {
+    for (const match of style.textContent.matchAll(/\.([A-Za-z_][\w-]*)\s*(?=[{,: >+~.#\[])/g)) {
+      const name = match[1]
+      const owner = classOwners.get(name)
+      assert.ok(!owner || owner === style.dataset.pluginCss, `CSS class ${name} collides between ${owner} and ${style.dataset.pluginCss}`)
+      classOwners.set(name, style.dataset.pluginCss)
+    }
+  }
   for (const name of dependencies) {
     if (name.startsWith('@deepseek-ai/')) assert.ok(pkg.dsh.client.inject.includes(name), `undeclared module ${name}`)
   }

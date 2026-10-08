@@ -12,7 +12,10 @@ const cssPlugin = {
       const result = await esbuild.build({
         stdin: { contents: `import styles from ${JSON.stringify(file)}; export default styles`, resolveDir: root, loader: 'js' },
         bundle: true, write: false, format: 'esm', tsconfigRaw: {},
-        loader: { '.css': 'local-css' }, outdir: 'out', minify: true,
+        // Each stylesheet is compiled separately: identifier minification would
+        // restart at .a/.b in every module and cause cross-module collisions.
+        loader: { '.css': 'local-css' }, outdir: 'out', minifySyntax: true, minifyWhitespace: true,
+        minifyIdentifiers: false,
       })
       const js = result.outputFiles.find(f => f.path.endsWith('.js')).text
       const css = result.outputFiles.find(f => f.path.endsWith('.css')).text
