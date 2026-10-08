@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>Aqua glass droplet</title>
+  <defs>
+    <linearGradient id="aqua-body" x1="18" y1="12" x2="46" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#97F6FF"/>
+      <stop offset=".42" stop-color="#34CFEA"/>
+      <stop offset="1" stop-color="#4263F4"/>
+    </linearGradient>
+    <linearGradient id="aqua-edge" x1="19" y1="10" x2="45" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8FCFF"/>
+      <stop offset=".55" stop-color="#72E1FF"/>
+      <stop offset="1" stop-color="#587CFF"/>
+    </linearGradient>
+    <linearGradient id="aqua-wave" x1="12" y1="34" x2="48" y2="51" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9FFFF3"/>
+      <stop offset="1" stop-color="#25B8DE"/>
+    </linearGradient>
+    <linearGradient id="aqua-gloss" x1="23" y1="19" x2="35" y2="39" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity=".85"/>
+      <stop offset="1" stop-color="white" stop-opacity=".1"/>
+    </linearGradient>
+    <clipPath id="aqua-clip">
+      <path d="M32 7C28 14 12 29 12 39a20 20 0 0 0 40 0C52 29 36 14 32 7Z"/>
+    </clipPath>
+  </defs>
+  <path d="M32 7C28 14 12 29 12 39a20 20 0 0 0 40 0C52 29 36 14 32 7Z" fill="url(#aqua-body)"/>
+  <g clip-path="url(#aqua-clip)">
+    <path d="M10 38c9-7 16-7 24-2 8 5 13 5 20 1v26H10Z" fill="url(#aqua-wave)" fill-opacity=".8"/>
+    <path d="M10 46c9 5 16 5 24 0s13-5 20-1v18H10Z" fill="#4364F2" fill-opacity=".7"/>
+    <path d="M12 38c8-6 14-6 22-2s13 5 18 2" fill="none" stroke="#D4FFFF" stroke-opacity=".65" stroke-width="1.5"/>
+  </g>
+  <path d="M32 7C28 14 12 29 12 39a20 20 0 0 0 40 0C52 29 36 14 32 7Z" fill="none" stroke="url(#aqua-edge)" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M29 19c-5 6-11 13-11 19" fill="none" stroke="url(#aqua-gloss)" stroke-width="4" stroke-linecap="round"/>
+  <path d="m47 11 1.5 4.5L53 17l-4.5 1.5L47 23l-1.5-4.5L41 17l4.5-1.5Z" fill="#AEF9FF"/>
+</svg>

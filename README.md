@@ -1,5 +1,7 @@
 # Aqua — DSH Transparent UI Plugin
 
+<img src="icon.svg" width="64" height="64" alt="Aqua glass droplet icon">
+
 English | [中文](<README.zh.md>)
 
 A customizable glass theme for DeepSeek Harness. The conversation toolbar, sidebar, composer, statistics bar and settings panel use translucent surfaces, with a sidebar fluid backdrop, a particle whale and an interactive mesh behind the application content.
@@ -24,7 +26,7 @@ Distributed under [GNU AGPL-3.0](<LICENSE>); package metadata declares `AGPL-3.0
 | Item | Current target |
 | --- | --- |
 | Plugin package | `@deepseek-ai/dsh-client-ui-aqua` |
-| Current plugin version | `1.3.19` |
+| Current plugin version | `1.3.20` |
 | Target DSH version | Desktop `0.2.0-rc.2` |
 | Desktop profile | `desktop` |
 | Recommended installation | This GitHub repository, branch `main` |

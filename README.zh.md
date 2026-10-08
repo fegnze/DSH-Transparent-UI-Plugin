@@ -1,5 +1,7 @@
 # Aqua — DSH 透明玻璃主题插件
 
+<img src="icon.svg" width="64" height="64" alt="Aqua 玻璃水滴图标">
+
 [English](<README.md>) | 中文
 
 Aqua 为 DeepSeek Harness 提供可调节的玻璃质感主题：会话顶部操作栏、侧边栏、输入框、统计栏和设置面板使用半透明材质，左侧流体背景、粒子鲸鱼与交互网格位于应用内容下方。
@@ -24,7 +26,7 @@ Aqua 为 DeepSeek Harness 提供可调节的玻璃质感主题：会话顶部操
 | 项目 | 当前目标 |
 | --- | --- |
 | 插件包名 | `@deepseek-ai/dsh-client-ui-aqua` |
-| 当前插件版本 | `1.3.19` |
+| 当前插件版本 | `1.3.20` |
 | 目标 DSH 版本 | 桌面版 `0.2.0-rc.2` |
 | 桌面配置 Profile | `desktop` |
 | 推荐安装来源 | 本 GitHub 仓库的 `main` 分支 |
