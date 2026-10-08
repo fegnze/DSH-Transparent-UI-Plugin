@@ -75,6 +75,9 @@ test('client starts without removed settingsScope and exposes reachable settings
   toggle(true)
   assert.equal(window.document.documentElement.hasAttribute('data-dsh-aqua'), true)
   assert.equal(window.document.documentElement.hasAttribute('data-dsh-compat'), true)
+  assert.ok(window.document.querySelector('[data-dsh-aqua-ambient]'))
+  assert.ok(window.document.querySelectorAll('[data-aqua-critter]').length > 0)
+  assert.equal(window.getComputedStyle(window.document.body).isolation, 'isolate', 'negative-z ambient layer needs a body stacking context')
   assert.equal(entries[0].options.store.state.enabled, true)
   assert.equal(entries[1].options.store.state.enabled, true)
   // Render both settings entries while enabled, including every decoration icon.

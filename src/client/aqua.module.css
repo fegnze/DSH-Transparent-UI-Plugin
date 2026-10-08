@@ -13,6 +13,10 @@
    the frame —lift them too, or the glow never reaches the eye. ---------- */
 [data-dsh-aqua] body {
   background: var(--dsw-alias-bg-base);
+  /* Contain negative-z backdrop layers above the body's own background.
+     Without a local stacking context they can paint behind the root canvas,
+     hiding all ambient decorations even though their engines are running. */
+  isolation: isolate;
 }
 
 /* ---------- Knobs: the settings row writes --dsh-aqua-blur (px),
