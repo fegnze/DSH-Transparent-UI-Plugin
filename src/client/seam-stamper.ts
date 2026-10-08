@@ -77,7 +77,34 @@ function stampAll(): void {
  */
 export function startSeamStamper(): () => void {
   stampAll()
-  const observer = new MutationObserver(() => { stampAll() })
+  // Keep the fluid board restricted to the live sidebar bounds. ResizeObserver
+  // also follows layout drag/collapse without polling or reacting to canvas frames.
+  let sidebar: Element | null = null
+  const updateFluidBounds = (): void => {
+    const rect = sidebar?.getBoundingClientRect()
+    document.documentElement.style.setProperty('--dsh-aqua-fluid-left', `${rect?.left ?? 0}px`)
+    document.documentElement.style.setProperty('--dsh-aqua-fluid-width', `${rect?.width ?? 0}px`)
+  }
+  const resize = new ResizeObserver(updateFluidBounds)
+  const refresh = (): void => {
+    stampAll()
+    const next = document.querySelector('[class*="sidebarCol"]')
+    if (next !== sidebar) {
+      resize.disconnect()
+      sidebar = next
+      if (sidebar !== null) resize.observe(sidebar)
+    }
+    updateFluidBounds()
+  }
+  refresh()
+  const observer = new MutationObserver(refresh)
   observer.observe(document.documentElement, { childList: true, subtree: true })
-  return () => { observer.disconnect() }
+  window.addEventListener('resize', updateFluidBounds)
+  return () => {
+    observer.disconnect()
+    resize.disconnect()
+    window.removeEventListener('resize', updateFluidBounds)
+    document.documentElement.style.removeProperty('--dsh-aqua-fluid-left')
+    document.documentElement.style.removeProperty('--dsh-aqua-fluid-width')
+  }
 }

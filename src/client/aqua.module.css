@@ -65,9 +65,23 @@
   position: static;
 }
 
+/* Keep the scrollport below the toolbar: its old negative margin made
+   a transparent hit-test surface overlap the header on desktop. */
 [data-dsh-float] [data-phase='active'] [data-conversation-scroll] {
-  margin-top: -95px;
-  padding-top: 107px;
+  margin-top: 0;
+  padding-top: 12px;
+}
+
+[data-dsh-aqua] header {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+[data-dsh-aqua] header :is(button, a, input, select, [role='button']) {
+  -webkit-app-region: no-drag;
+  pointer-events: auto;
 }
 
 /* No scrim: the transcript and details sit directly on the (now slightly
@@ -96,17 +110,11 @@
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  background:
-    radial-gradient(760px 420px at 50% -8%, rgba(160, 200, 255, 0.26), transparent 70%),
-    linear-gradient(180deg, rgba(156, 193, 231, 0.22) 0%, rgba(156, 193, 231, 0) 38%),
-    radial-gradient(900px 420px at 50% 108%, rgba(156, 193, 231, 0.14), transparent 70%);
+  background: transparent;
 }
 
 [data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-ambient] {
-  background:
-    radial-gradient(760px 420px at 50% -8%, rgba(110, 165, 255, 0.13), transparent 70%),
-    linear-gradient(180deg, rgba(94, 143, 224, 0.13) 0%, rgba(94, 143, 224, 0) 46%),
-    radial-gradient(900px 420px at 50% 108%, rgba(94, 143, 224, 0.09), transparent 70%);
+  background: transparent;
 }
 
 /* Background brightness knob: dark mode darkens (0 = pure black, 50 = off),
@@ -139,9 +147,10 @@
    the palette (depth baked into the colors), so no global filter here. */
 [data-dsh-aqua] [data-dsh-aqua-fluid-canvas] {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  inset: 0 auto 0 var(--dsh-aqua-fluid-left, 0px);
+  width: var(--dsh-aqua-fluid-width, 0px);
   height: 100%;
+  pointer-events: none;
 }
 
 /* Custom wallpaper: the backdrop-source knob swaps the fluid board for an
