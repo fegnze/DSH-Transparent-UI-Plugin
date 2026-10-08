@@ -27,8 +27,11 @@ test('client starts without removed settingsScope and exposes reachable settings
         dependencies.add(name)
         if (name === '@deepseek-ai/dsh-client-store') return storeModule
         if (name === 'react') return { useRef: () => ({ current: null }) }
-        if (name === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) }
-        if (name === '@deepseek-ai/dsh-client-ui-primitives') return { IconCheckOutline16: () => null }
+        if (name === 'react/jsx-runtime') {
+          const jsx = (type, props) => { assert.ok(type, 'JSX component must exist in current runtime'); return { type, props } }
+          return { jsx, jsxs: jsx, Fragment: Symbol.for('react.fragment') }
+        }
+        if (name === '@deepseek-ai/dsh-client-ui-primitives') return { IconCheckOutlineRegular: () => null }
         throw new Error(`Unexpected module dependency: ${name}`)
       })
     },
@@ -74,6 +77,15 @@ test('client starts without removed settingsScope and exposes reachable settings
   assert.equal(window.document.documentElement.hasAttribute('data-dsh-compat'), true)
   assert.equal(entries[0].options.store.state.enabled, true)
   assert.equal(entries[1].options.store.state.enabled, true)
+  // Render both settings entries while enabled, including every decoration icon.
+  for (const { options, component } of entries) {
+    const handle = options.store
+    for (const flag of ['whale', 'critters', 'mesh', 'spotlight', 'press']) handle.state[flag] = true
+    const actions = Object.fromEntries(Object.entries(handle.spec.actions).map(([name, action]) => [name, (...args) => action(handle.state, ...args)]))
+    const injected = options.inject(actions)
+    for (const flag of ['whale', 'critters', 'mesh', 'spotlight', 'press']) handle.state[flag] = true
+    assert.ok(component({ ...injected, t: key => key, useStore: selector => selector(handle.state) }))
+  }
   toggle(false)
   assert.equal(window.document.documentElement.hasAttribute('data-dsh-aqua'), false)
   for (const dispose of disposers.reverse()) dispose()

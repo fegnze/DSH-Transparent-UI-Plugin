@@ -10,7 +10,7 @@
  * section is off.
  */
 import { useRef } from 'react'
-import { IconCheckOutline16 } from '@deepseek-ai/dsh-client-ui-primitives'
+import { IconCheckOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
 // Type-only: pulls the `settings.general.item` SlotMap merge.
 import type {} from '@deepseek-ai/dsh-client-ui-settings-general/client'
@@ -329,7 +329,7 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
               onClick={() => { setWhale(!whale) }}
             >
               <span className={css.check}>
-                {whale && <IconCheckOutline16 />}
+                {whale && <IconCheckOutlineRegular size={16} />}
               </span>
               {whale ? t('aqua.enable') : t('aqua.disable')}
             </button>
@@ -343,7 +343,7 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
               onClick={() => { setCritters(!critters) }}
             >
               <span className={css.check}>
-                {critters && <IconCheckOutline16 />}
+                {critters && <IconCheckOutlineRegular size={16} />}
               </span>
               {critters ? t('aqua.enable') : t('aqua.disable')}
             </button>
@@ -357,7 +357,7 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
               onClick={() => { setMesh(!mesh) }}
             >
               <span className={css.check}>
-                {mesh && <IconCheckOutline16 />}
+                {mesh && <IconCheckOutlineRegular size={16} />}
               </span>
               {mesh ? t('aqua.enable') : t('aqua.disable')}
             </button>
@@ -379,7 +379,7 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
                 onClick={() => { setSpotlight(!spotlight) }}
               >
                 <span className={css.check}>
-                  {spotlight && <IconCheckOutline16 />}
+                  {spotlight && <IconCheckOutlineRegular size={16} />}
                 </span>
                 {spotlight ? t('aqua.enable') : t('aqua.disable')}
               </button>
@@ -393,7 +393,7 @@ export function AquaAppearanceRow(props: AquaAppearanceRowComponentProps) {
                 onClick={() => { setPress(!press) }}
               >
                 <span className={css.check}>
-                  {press && <IconCheckOutline16 />}
+                  {press && <IconCheckOutlineRegular size={16} />}
                 </span>
                 {press ? t('aqua.enable') : t('aqua.disable')}
               </button>

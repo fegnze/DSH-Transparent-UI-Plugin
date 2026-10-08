@@ -2,7 +2,7 @@
  * Aqua master switch in General settings (`settings.general.item`).
  * Always visible, including when the glass controls below it are disabled.
  */
-import { IconCheckOutline16 } from '@deepseek-ai/dsh-client-ui-primitives'
+import { IconCheckOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { InjectFace, PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
 // Type-only: pulls the General settings SlotMap merge.
 import type {} from '@deepseek-ai/dsh-client-ui-settings-general/client'
@@ -42,7 +42,7 @@ export function AquaPluginCard(props: AquaPluginCardComponentProps) {
           onClick={() => { setEnabled(!enabled) }}
         >
           <span className={css.check}>
-            {enabled && <IconCheckOutline16 />}
+            {enabled && <IconCheckOutlineRegular size={16} />}
           </span>
           {enabled ? t('aqua.enable') : t('aqua.disable')}
         </button>
