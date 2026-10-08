@@ -2,9 +2,11 @@
 
 English | [中文](README.zh.md)
 
-## DSH 0.2.0-rc.2 desktop plugin-manager compatibility metadata
+## DSH 0.2.0-rc.2 client port (1.3.6)
 
-This fork changes package compatibility metadata only so the DSH 0.2.0-rc.2 desktop plugin manager can recognize and install it. Runtime code has not been ported or verified against DSH 0.2.0-rc.2; installation approval is not evidence that Aqua works at runtime.
+Fixes installation without client activation: removes the missing `settingsScope` dependency/binding, moves the master switch from the removed `settings.plugin.item` to `settings.general.item`, and replaces the obsolete runtime peer with the store module actually used by the client.
+
+Checked against the desktop application's bundled interfaces. Simulated-DOM tests cover module loading, settings registration, theme enable/disable and cleanup. **Real desktop visual acceptance is still pending**; video, WebGL and other plugin combinations require live verification.
 
 ### Attribution
 
@@ -41,7 +43,23 @@ Aqua is a highly customizable glassmorphism theme for the DeepSeek Harness web U
 
 ## Installation
 
-### Recommended: GitHub installer
+### Current desktop application (recommended)
+
+Use the desktop **Settings → Plugin manager** with GitHub source `https://github.com/fegnze/DSH-Transparent-UI-Plugin`, branch `main`. When updating, fetch the new commit rather than a cached older revision, then reload the desktop window.
+
+Desktop uses the `desktop` profile. The legacy installer below targets `web` and is not a desktop installation procedure. Do not modify the desktop profile with an older CLI runtime.
+
+### Local build and regression tests
+
+```sh
+npm install --legacy-peer-deps
+npm run bundle
+npm test
+```
+
+The build no longer needs the original author's monorepo or Windows paths. Tests use a simulated DOM, not a real desktop GPU/visual acceptance run.
+
+### Legacy Web installer (reference only)
 
 No npm account and no git needed (falls back to a plain zip download).
 
@@ -91,4 +109,4 @@ dsh plugin --profile web remove dsh-client-ui-aqua
 
 ## Usage
 
-Reload the web UI. Aqua is **on by default**; the master switch lives in **Settings → Plugins → Glass theme** (same shape as the other plugin cards), and every other control sits directly under **Settings → General → Appearance** (no title of its own): mode, blur/frost (Mica mode), fluid color, background brightness, backdrop (fluid/wallpaper) with its wallpaper controls, and the particle-whale toggle. With the master switch off, the whole control block under Appearance is hidden.
+Reload the web UI. Aqua is **on by default**; the master switch lives in **Settings → General → Glass theme, below Appearance** (always accessible, even while disabled), and every other control sits directly under **Settings → General → Appearance** (no title of its own): mode, blur/frost (Mica mode), fluid color, background brightness, backdrop (fluid/wallpaper) with its wallpaper controls, and the particle-whale toggle. With the master switch off, the whole control block under Appearance is hidden.

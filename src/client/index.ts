@@ -2,8 +2,7 @@
  * Aqua client plugin body: the toggleable glassmorphism skin. Owns the durable
  * enable flag (localStorage), applies/retracts the theme layer through
  * {@link AquaLayer}, and registers two settings surfaces:
- * - the master on/off card into the Plugins section (`settings.plugin.item`,
- *   same shape as the other plugin cards);
+ * - the master on/off card into General settings (always reachable);
  * - every glass knob into the General section's Appearance row area
  *   (`settings.general.item`, right under 外观).
  * One click on the master switch returns the stock UI (every layer is an
@@ -11,10 +10,8 @@
  */
 import type { Context as ClientContext } from '@deepseek-ai/cordis'
 import type { BoundActions } from '@deepseek-ai/dsh-client-ui-slots'
-// Type-only: pulls the `settings.plugin.item` SlotMap merge.
-import type {} from '@deepseek-ai/dsh-client-ui-settings-plugins/client'
 // Type-only: pulls the `settings.general.item` SlotMap merge.
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@deepseek-ai/dsh-client-ui-settings-general/client'
 import { AquaPluginCard, type AquaPluginCardInjected } from './AquaPluginCard.tsx'
 import { AquaAppearanceRow, type AquaAppearanceRowInjected } from './AquaAppearanceRow.tsx'
 import { createAquaRowStore, type AquaSettingsPayload } from './settings-store.ts'
@@ -25,8 +22,8 @@ import { AquaLayer } from './theme-layer.ts'
 import './aqua.module.css'
 import './fonts.module.css'
 
-/** Required services: theme override stack, settings scope, and the settings-card surfaces. */
-export const inject = ['theme', 'slots', 'locale', 'settingsScope']
+/** Required services: theme override stack, slots, and locale dictionaries. */
+export const inject = ['theme', 'slots', 'locale']
 
 /**
  * Client plugin body.
@@ -38,12 +35,6 @@ export function apply(ctx: ClientContext): void {
   // The layer owns its lifecycle: enable flag, token stack, and CSS attribute
   // are all effects released on disable/dispose.
   const layer = new AquaLayer(ctx)
-
-  // Register the `settings.aqua` namespace with the Host so the new
-  // namespace-driven Configurable Plugins tab (`settings.plugin.item` is now a
-  // keyed slot) serves our master card. Bind owns its lifecycle through an
-  // internal effect, so no disposer is needed here.
-  ctx.settingsScope.bind({ namespace: NS })
 
   // Two store mirrors of the same layer state: one for the Plugins card
   // (master switch) and one for the General section's Appearance row (knobs).
@@ -180,12 +171,12 @@ export function apply(ctx: ClientContext): void {
     }
   }
 
-  // Master switch card in the Plugins configurable tab.
-  // `settings.plugin.item` is a keyed slot declared by the configurable plugins
-  // tab. Wait for that parent slot before registering the Aqua card.
-  ctx.slots.inject('settings.plugin.item', () => ctx.slots.register({
-    name: 'settings.plugin.item',
-    key: NS,
+  // DSH 0.2 exposes general settings as a list slot. Keep the master
+  // switch here too so it remains accessible while the controls are hidden.
+  ctx.slots.inject('settings.general.item', () => ctx.slots.register({
+    name: 'settings.general.item',
+    id: 'aqua-toggle',
+    order: 10.5,
     store: pluginStore,
     locale: NS,
     inject: pluginInjected,
