@@ -98,11 +98,11 @@ test('client starts without removed settingsScope and exposes reachable settings
       injected.setBlur(40)
       injected.setFrost(100)
       assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-blur'), '40px')
-      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-settings-frost'), '0.95')
+      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-frost'), '1.4')
       injected.setBlur(0)
       injected.setFrost(0)
       assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-blur'), '0px')
-      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-settings-frost'), '0')
+      assert.equal(window.document.documentElement.style.getPropertyValue('--dsh-aqua-frost'), '0')
     }
   }
   toggle(false)

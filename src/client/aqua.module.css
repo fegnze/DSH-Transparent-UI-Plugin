@@ -781,17 +781,16 @@ html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] body[
   background: var(--dsh-aqua-glass-card-dark);
 }
 
-/* Settings needs a legible plate: frost 0–100 maps to fill alpha 0–0.95.
-   Target its actual portal panel, not the overlay/mask, so only the surface
-   samples the backdrop and foreground controls remain fully opaque. */
+/* Settings shares the composer's glass material and knob mapping.
+   Target the actual portal panel, not its overlay or foreground controls. */
 [data-dsh-aqua] body [data-shortcut-modal='settings'] {
-  background: rgb(255 255 255 / var(--dsh-aqua-settings-frost, 0.5));
+  background: var(--dsh-aqua-glass-card-light);
   backdrop-filter: blur(var(--dsh-aqua-blur, 14px));
   animation: none;
 }
 
 [data-dsh-aqua] body[data-ds-dark-theme] [data-shortcut-modal='settings'] {
-  background: rgb(17 26 39 / var(--dsh-aqua-settings-frost, 0.5));
+  background: var(--dsh-aqua-glass-card-dark);
 }
 
 /* ---------- Sidebar: the selected session gets an accent bar and a soft halo. ---------- */
